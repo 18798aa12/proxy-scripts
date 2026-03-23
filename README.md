@@ -12,10 +12,10 @@ Quantumult X & Surge 自用脚本合集 — 金融安全、网络诊断、行情
 
 ### 金融安全
 
-#### finance-ip-guard.js — 金融 IP 安全检查
-- **平台**: QX | **类型**: 长按触发
-- **使用场景**: 打开 Capital One/Monzo/N26 等金融 App 前，需要确认当前 IP 在正确的国家。用错 IP 登录金融 App 可能触发风控甚至冻结账户
-- **使用方法**: 长按对应的**金融策略组** (如"美国金融") → 选择此脚本 → 显示当前出口 IP 是否匹配该金融区域，并列出可安全使用的 App
+#### finance-ip-guard.js — 金融 IP 安全检查 v2.0
+- **平台**: QX | **类型**: 长按节点触发
+- **使用场景**: 打开 Capital One/Monzo/N26 等金融 App 前，确认当前 IP 在正确的国家且纯净度足够。v2.0 新增 ipinfo Blackbox + proxycheck.io 多源纯净度检测，不再仅依赖 ip-api 的简单判断
+- **使用方法**: 长按对应金融节点 → 选择此脚本 → 显示出口 IP 国家 + 纯净度评分 (%) + 可安全使用的 App 列表
 - **安装**:
 ```ini
 # QX [task_local]
@@ -32,10 +32,10 @@ event-interaction https://raw.githubusercontent.com/18798aa12/proxy-scripts/main
 event-interaction https://raw.githubusercontent.com/18798aa12/proxy-scripts/main/qx/ip-quality-check.js, tag=🔍IP纯净度检测, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Lock.png, enabled=true
 ```
 
-#### ip-reputation.js — IP 信誉/黑名单检测
-- **平台**: QX | **类型**: 长按触发
-- **使用场景**: 比 ip-quality-check 更深入 — 聚合多个数据源检测 IP 是否在垃圾邮件/滥用黑名单上。金融机构和电商网站会查询这些黑名单来判断是否允许交易
-- **使用方法**: 长按策略组 → 选择此脚本 → 查看综合风险评分 (0-100)，分数越低越安全
+#### ip-reputation.js — IP 信誉检测 v3.0
+- **平台**: QX | **类型**: 长按节点触发
+- **使用场景**: 4源聚合检测 (ip-api + ipinfo Blackbox + proxycheck.io + ipwhois)，多源投票制评分，准确度对标 ping0.cc。同时显示风险评分和纯净度，精确识别机房/VPN/代理/住宅 IP
+- **使用方法**: 长按节点 → 选择此脚本 → 查看 4 个数据源检测结果 + 综合风险评分 (0-100) + 纯净度
 - **安装**:
 ```ini
 # QX [task_local]
@@ -207,6 +207,16 @@ event-interaction https://raw.githubusercontent.com/18798aa12/proxy-scripts/main
 
 ### 网络诊断
 
+#### node-checkup.js — 节点综合体检 v1.0
+- **平台**: QX | **类型**: 长按节点触发
+- **使用场景**: 一次性全面检测节点质量：延迟 (4目标)、下载速度 (Cloudflare 1MB)、丢包率 (10次探测)、IP 纯净度 (3源检测)、DNS 泄漏。最终给出 A/B/C/D/F 综合评级，帮你快速判断节点是否值得使用
+- **使用方法**: 长按节点 → 选择此脚本 → 等待 5-10 秒 → 查看五项评分 + 综合评级
+- **安装**:
+```ini
+# QX [task_local]
+event-interaction https://raw.githubusercontent.com/18798aa12/proxy-scripts/main/qx/node-checkup.js, tag=🔬节点综合体检, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png, enabled=true
+```
+
 #### network-diag.js — 全链路网络诊断
 - **平台**: QX | **类型**: 长按触发
 - **使用场景**: 网速慢或某个网站打不开时，一键测试 Google/Cloudflare/GitHub/金融站点/百度 等多个目标的连通性和延迟，快速定位是代理问题、DNS 问题还是目标站点问题
@@ -298,6 +308,7 @@ event-interaction https://raw.githubusercontent.com/18798aa12/proxy-scripts/main
 | `node-ip-watch.js` | `NODES` 数组 | 替换为你的节点列表 |
 | `backup-reminder.js` | Gist ID + 路径 | 替换为你的 Gist ID 和本地路径 |
 | `appstore-region.js` | `REGIONS` 对象 | 可添加/修改地区和对应的 App 列表 |
+| `node-checkup.js` | 无需修改 | 全自动检测，无需配置 |
 
 ---
 
