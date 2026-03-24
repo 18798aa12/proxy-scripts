@@ -84,28 +84,29 @@ function buildDigest() {
   }
 
   // ── 综合 ──
-  L.push("━━━━━━━━━━━━━━━━━━");
   if (alerts.length === 0) {
-    L.push("✅ 一切正常，祝你愉快！");
-  } else {
-    L.push("⚠️ " + alerts.length + "项需要注意");
+    // 一切正常时静默，不推送通知
+    $done();
+    return;
   }
 
+  L.push("━━━━━━━━━━━━━━━━━━");
+  L.push("⚠️ " + alerts.length + "项需要注意");
+
   var msg = L.join("\n");
-  var subtitle = alerts.length === 0 ? "✅ 一切正常" : ("⚠️ " + alerts.length + "项异常");
-  $notify("📋 每日晨报", subtitle, msg);
+  $notify("📋 每日晨报", "⚠️ " + alerts.length + "项异常", msg);
   $done();
 }
 
 // ── 检查 1: 节点在线状态 ──
 var NODES = [
-  { name: "🇯🇵 JP", host: "YOUR_SERVER_IP_1", port: 34532 },
-  { name: "🇺🇸 US-1", host: "YOUR_SERVER_IP_2", port: 50465 },
-  { name: "🇺🇸 US-2", host: "YOUR_SERVER_IP_3", port: 29869 },
-  { name: "🇺🇸 US-3", host: "YOUR_SERVER_IP_4", port: 14758 },
-  { name: "🇩🇪 德国", host: "YOUR_SERVER_IP_5", port: 35227 },
-  { name: "🇬🇧 UK-1", host: "YOUR_SERVER_IP_6", port: 30138 },
-  { name: "🇬🇧 UK-2", host: "YOUR_SERVER_IP_7", port: 27955 }
+  { name: "🇯🇵 JP", host: "YOUR_IP_1", port: 34532 },
+  { name: "🇺🇸 US-1", host: "YOUR_IP_2", port: 50465 },
+  { name: "🇺🇸 US-2", host: "YOUR_IP_3", port: 29869 },
+  { name: "🇺🇸 US-3", host: "YOUR_IP_4", port: 14758 },
+  { name: "🇩🇪 德国", host: "YOUR_IP_5", port: 35227 },
+  { name: "🇬🇧 UK-1", host: "YOUR_IP_6", port: 30138 },
+  { name: "🇬🇧 UK-2", host: "YOUR_IP_7", port: 27955 }
 ];
 
 var nodeDone = 0;

@@ -6,13 +6,18 @@
  */
 
 // 设置目标汇率 (direction: "below" = 低于目标时提醒, "above" = 高于目标时提醒)
+// 目标基于 2026-03-24 汇率设定 (USD/CNY=6.90, GBP=0.745, EUR=0.862, JPY=158.6, PHP=59.7)
+// 根据你的需求自行调整 target 值
 var TARGETS = [
-  { pair: "USD/CNY", from: "USD", to: "CNY", target: 7.10, direction: "below", note: "美元兑人民币跌破7.10，适合购汇" },
-  { pair: "GBP/CNY", from: "GBP", to: "CNY", target: 9.50, direction: "above", note: "英镑升破9.50，适合结汇" },
-  { pair: "USD/GBP", from: "USD", to: "GBP", target: 0.77, direction: "below", note: "美元兑英镑跌破0.77，适合美转英" },
-  { pair: "USD/JPY", from: "USD", to: "JPY", target: 148.0, direction: "above", note: "日元贬值破148，适合购入日元资产" },
-  { pair: "USD/PHP", from: "USD", to: "PHP", target: 57.0, direction: "above", note: "比索贬值破57，适合向菲律宾转账" },
-  { pair: "EUR/CNY", from: "EUR", to: "CNY", target: 8.20, direction: "above", note: "欧元升破8.20，适合结汇" }
+  { pair: "USD/CNY", from: "USD", to: "CNY", target: 6.75, direction: "below", note: "美元兑人民币跌破6.75，购汇好时机" },
+  { pair: "USD/CNY", from: "USD", to: "CNY", target: 7.15, direction: "above", note: "美元兑人民币升破7.15，结汇好时机" },
+  { pair: "GBP/CNY", from: "GBP", to: "CNY", target: 9.50, direction: "above", note: "英镑升破9.50，英镑结汇好时机" },
+  { pair: "GBP/CNY", from: "GBP", to: "CNY", target: 8.80, direction: "below", note: "英镑跌破8.80，购入英镑好时机" },
+  { pair: "USD/GBP", from: "USD", to: "GBP", target: 0.72, direction: "below", note: "美元兑英镑跌破0.72，美元转英镑好时机" },
+  { pair: "USD/JPY", from: "USD", to: "JPY", target: 165.0, direction: "above", note: "日元贬值破165，购入日元好时机" },
+  { pair: "USD/JPY", from: "USD", to: "JPY", target: 145.0, direction: "below", note: "日元升值破145，日元结汇好时机" },
+  { pair: "USD/PHP", from: "USD", to: "PHP", target: 62.0, direction: "above", note: "比索贬值破62，向菲律宾转账好时机" },
+  { pair: "EUR/CNY", from: "EUR", to: "CNY", target: 8.30, direction: "above", note: "欧元升破8.30，欧元结汇好时机" }
 ];
 
 var KEY_PREFIX = "rate_target_notified_";
